@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"  # Expose frontend on port 5173
+    volumes:
+      - ./frontend:/app  # Mount the frontend folder to /app inside the container
+    environment:
+      - NODE_ENV=development
+    command: npm run dev  # Run the Vite development server
