@@ -1,65 +1,48 @@
-import React from 'react';
-import { Form, Input, Button, message } from 'antd';
-import { useMutation } from 'react-query';
-import { register } from '../../api/auth';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Form, Input, Button } from "antd";
+import { useRegister } from "../../api/auth";
 
 const Register: React.FC = () => {
-  const navigate = useNavigate();
-  const [form] = Form.useForm(); 
-
-  const { mutateAsync: registerApi, isLoading } = useMutation(register, {
-    onSuccess: (data) => {
-      localStorage.setItem('token', data.token); 
-      message.success('Registration successful!');
-      navigate('/dashboard');
-    },
-    onError: (error: any) => {
-      message.error(error.response?.data?.message || 'Registration failed');
-    }
-  });
+  const [form] = Form.useForm();
+  const { mutateAsync: register, isLoading } = useRegister();
 
   const onFinish = async (values: any) => {
     try {
-      await registerApi(values);
+      await register(values);
     } catch (error) {
-      console.error('Registration error', error);
+      console.error("Registration error:", error);
     }
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '0 auto' }}>
+    <div style={{ maxWidth: 400, margin: "0 auto" }}>
       <h2>Register</h2>
-      <Form 
-        form={form}
-        onFinish={onFinish} 
-        layout="vertical"
-      >
-        <Form.Item 
-          name="name" 
-          label="Name" 
-          rules={[{ required: true, message: 'Please input your name!' }]}
+      <Form form={form} onFinish={onFinish} layout="vertical">
+        <Form.Item
+          name="name"
+          label="Name"
+          rules={[{ required: true, message: "Please input your name!" }]}
         >
           <Input placeholder="Enter your name" />
         </Form.Item>
 
-        <Form.Item 
-          name="email" 
-          label="Email" 
+        <Form.Item
+          name="email"
+          label="Email"
           rules={[
-            { required: true, message: 'Please input your email!' },
-            { type: 'email', message: 'Please enter a valid email' }
+            { required: true, message: "Please input your email!" },
+            { type: "email", message: "Please enter a valid email" },
           ]}
         >
           <Input placeholder="Enter your email" type="email" />
         </Form.Item>
 
-        <Form.Item 
-          name="password" 
-          label="Password" 
+        <Form.Item
+          name="password"
+          label="Password"
           rules={[
-            { required: true, message: 'Please input your password!' },
-            { min: 6, message: 'Password must be at least 6 characters' }
+            { required: true, message: "Please input your password!" },
+            { min: 6, message: "Password must be at least 6 characters" },
           ]}
         >
           <Input.Password placeholder="Enter your password" />

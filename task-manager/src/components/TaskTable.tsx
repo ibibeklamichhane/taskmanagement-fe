@@ -14,7 +14,7 @@ const TaskTable: React.FC<TaskTableProps> = ({ tasks, onEdit }) => {
 
   return (
     <Table
-      dataSource={tasks}
+      dataSource={tasks || []}
       rowKey="_id"
       columns={[
         {
