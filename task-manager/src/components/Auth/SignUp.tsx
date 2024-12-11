@@ -16,7 +16,7 @@ const Register: React.FC = () => {
 
   return (
     <div style={{ maxWidth: 400, margin: "0 auto" }}>
-      <h2>Register</h2>
+      <h2 style={{ textAlign: "center", marginBottom: 24 , marginTop: 60, fontWeight: "bold" }}>Fill up to Register</h2>
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item
           name="name"

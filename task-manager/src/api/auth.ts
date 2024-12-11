@@ -9,6 +9,7 @@ import {
   RegisterCredentials,
 } from "../interfaces/AuthInterfaces";
 
+
 export const loginApi = async (
   credentials: LoginCredentials
 ): Promise<LoginResponse> => {

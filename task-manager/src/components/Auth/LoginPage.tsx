@@ -15,13 +15,12 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
   const onFinish = async (values: any) => {
     try {
       const response = await login(values);
-      
-      // Assuming the response contains a token
+   //storing fetching the token in from local storage ,local storage ma  
       const token = response?.data?.token; 
       if (token) {
-        localStorage.setItem("token", token); // Save token to localStorage
-        setIsAuthenticated(true); // Update authentication state
-        navigate("/tasklist"); // Redirect to TaskList page
+        localStorage.setItem("token", token); 
+        setIsAuthenticated(true); 
+        navigate("/tasklist"); 
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -30,7 +29,7 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
 
   return (
     <div style={{ maxWidth: 400, margin: "0 auto" }}>
-      <h2 style={{ textAlign: "center", marginBottom: 24 }}>Login</h2>
+      <h2 style={{ textAlign: "center", marginBottom: 24 , marginTop: 60, fontWeight: "bold" }}>Login</h2>
       <Form
         form={form}
         onFinish={onFinish}

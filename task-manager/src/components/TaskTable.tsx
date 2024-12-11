@@ -54,9 +54,9 @@ const TaskTable: React.FC<TaskTableProps> = ({ onEdit }) => {
           key: "status",
           render: (status) => (
             <span>
-              {status === "TODO" && "📝 To Do"}
-              {status === "IN_PROGRESS" && "🚧 In Progress"}
-              {status === "COMPLETED" && "✅ Completed"}
+              {status === "pending" && "📝 To Do"}
+              {status === "in-progress" && "🚧 In Progress"}
+              {status === "completed" && "✅ Completed"}
             </span>
           ),
         },

@@ -23,10 +23,11 @@ export const useCreateTaskMutation = () => {
   });
 };
 
+//fetching task with pagination 
 export const fetchTasks = async (  page: number,
   pageSize: number
 ): Promise<{ tasks: Task[]; totalCount: number }> => {
-  const { data } = await axiosInstance.get(`/task?page=${page}&pageSize=${pageSize}`);
+  const { data } = await axiosInstance.get(`/task?page=${page}&pageSize=${pageSize}`); 
   return { tasks: data.tasks, totalCount: data.pagination.totalCount };};
 
 export const updateTask = async (
