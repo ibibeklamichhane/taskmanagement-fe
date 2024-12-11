@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Input, DatePicker, Select } from "antd";
-import { useQuery } from "react-query";
-import { fetchTasks } from "../api/task";
+//import { useQuery } from "react-query";
+//import { fetchTasks } from "../api/task";
 import { useCreateTaskMutation, useUpdateTaskMutation } from "../api/task";
 import { Task } from "../interfaces/taskInterface";
 import TaskTable from "./TaskTable";
@@ -14,7 +14,7 @@ const TaskList: React.FC = () => {
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [form] = Form.useForm<Task>();
 
-  const { data: tasks } = useQuery<Task[]>("tasks", fetchTasks);
+ // const { data: tasks } = useQuery<Task[]>("tasks",fetchTasks);
 
   const createMutation = useCreateTaskMutation();
   const updateMutation = useUpdateTaskMutation();
@@ -56,7 +56,10 @@ const TaskList: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-5xl mx-auto mt-10 p-6 bg-gray-100 shadow-lg rounded-lg">
+       <h1 className="text-2xl font-bold mb-6 text-center">Task Management</h1>
+       <div className="flex justify-end mb-4">
+
       <Button
         type="primary"
         onClick={() => showModal()}
@@ -64,14 +67,22 @@ const TaskList: React.FC = () => {
       >
         Create New Task
       </Button>
+      </div>
 
-      <TaskTable tasks={tasks || []} onEdit={showModal} />
+      <TaskTable  onEdit={showModal} />
 
       <Modal
-        title={editingTask ? "Edit Task" : "Create New Task"}
+
+        title={
+          
+editingTask ? "Edit Task" : "Create New Task"
+}
+        
         visible={isModalVisible}
         onCancel={handleCancel}
         footer={null}
+        className="rounded-md"
+
       >
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Form.Item
@@ -94,9 +105,9 @@ const TaskList: React.FC = () => {
             rules={[{ required: true, message: "Please select task status!" }]}
           >
             <Select placeholder="Select task status">
-              <Option value="TODO">To Do</Option>
-              <Option value="IN_PROGRESS">In Progress</Option>
-              <Option value="COMPLETED">Completed</Option>
+              <Option value="completed">Completed</Option>
+              <Option value="pending">In Progress</Option>
+              <Option value="in-progress">Pending</Option>
             </Select>
           </Form.Item>
 
@@ -105,14 +116,21 @@ const TaskList: React.FC = () => {
           </Form.Item>
 
           <Form.Item>
+          <div className="flex justify-between">
+
             <Button
               type="primary"
               htmlType="submit"
               loading={createMutation.isLoading || updateMutation.isLoading}
+              className="bg-blue-500 hover:bg-blue-600 text-white"
             >
               {editingTask ? "Update Task" : "Create Task"}
             </Button>
-            <Button onClick={handleCancel}>Cancel</Button>
+            <Button onClick={handleCancel} className="text-gray-500">
+              Cancel
+              </Button>
+              </div>
+
           </Form.Item>
         </Form>
       </Modal>

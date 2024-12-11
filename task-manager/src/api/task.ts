@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { message } from "antd";
 
 export const createTask = async (task: Task): Promise<Task> => {
+  console.log(task);
   const { data } = await axiosInstance.post<Task>("/task", task);
   return data;
 };

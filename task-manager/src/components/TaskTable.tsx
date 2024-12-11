@@ -6,7 +6,7 @@ import { useDeleteTaskMutation, fetchTasks } from "../api/task";
 import { useQuery } from "react-query";
 
 interface TaskTableProps {
-  tasks: Task[];
+ 
   onEdit: (task: Task) => void;
 }
 
@@ -26,6 +26,7 @@ const TaskTable: React.FC<TaskTableProps> = ({ onEdit }) => {
     setPageSize(pagination.pageSize);
   };
   return (
+    <div className="max-w-5xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
     <Table
       dataSource={data?.tasks || []}
       rowKey="_id"
@@ -86,6 +87,7 @@ const TaskTable: React.FC<TaskTableProps> = ({ onEdit }) => {
         },
       ]}
     />
+    </div>
   );
 };
 
