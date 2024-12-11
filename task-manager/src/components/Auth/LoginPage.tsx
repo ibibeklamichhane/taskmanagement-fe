@@ -3,14 +3,26 @@ import { Form, Input, Button } from "antd";
 import { useLogin } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
 
-const Login: React.FC = () => {
+interface LoginProps {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const { mutateAsync: login, isLoading } = useLogin();
 
   const onFinish = async (values: any) => {
     try {
-      await login(values);
+      const response = await login(values);
+      
+      // Assuming the response contains a token
+      const token = response?.data?.token; 
+      if (token) {
+        localStorage.setItem("token", token); // Save token to localStorage
+        setIsAuthenticated(true); // Update authentication state
+        navigate("/tasklist"); // Redirect to TaskList page
+      }
     } catch (error) {
       console.error("Login error:", error);
     }
